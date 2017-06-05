@@ -9,6 +9,7 @@ class Table
 {
 protected:
 	int size; //общий размер
+	int doubleStrike;
 	int count;//текущее число записей
 	LinkedList<Node<KEY,DATA>>* mas; // данные
 	int Hash(KEY K);//функция выщитывающая индекс(хэшфункция)
@@ -21,6 +22,28 @@ Table& operator=(Table& ht);//оператор присваения
 void Add(DATA val_,KEY k_);//добавить элемент в таблицу
 void Del(KEY k_);//удаление по ключу
 void resize(int newSize);//ресайз
+int getStrike()
+{
+	return doubleStrike;
+}
+KEY* doublestrickhash()
+{
+	doubleStrike = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i].size() > 1)
+			doubleStrike++;
+	}
+	KEY* arr = new KEY[doubleStrike];
+	int s = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i].size() > 1)
+			arr[s++] = i;
+	}
+
+	return arr;
+}
 };
 
 template <class KEY, class DATA>
